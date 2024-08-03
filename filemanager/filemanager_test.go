@@ -68,3 +68,33 @@ func TestRenameFile(t *testing.T) {
 		t.Errorf("file inode changed after rename")
 	}
 }
+
+func TestChangeDirectory(t *testing.T) {
+	tempdir, err := os.MkdirTemp("", "test_dir")
+	if err != nil {
+		t.Fatalf("Failed to create temporary directory: %v", err)
+	}
+	defer os.RemoveAll(tempdir)
+
+	// Create a subdirectory
+	subDirPath := filepath.Join(tempdir, "subdir")
+	err = os.Mkdir(subDirPath, os.ModePerm)
+	if err != nil {
+		t.Fatalf("Failed to create subdirectory: %v", err)
+	}
+
+	// Change to the subdirectory
+	err = ChangeDirectory(subDirPath)
+	if err != nil {
+		t.Errorf("Failed to change directory: %v", err)
+	}
+
+	// Verify the current working directory
+	cwd, err := os.Getwd()
+	if err != nil {
+		t.Fatalf("Failed to get current working directory: %v", err)
+	}
+	if cwd != subDirPath {
+		t.Errorf("Incorrect working directory: expected %s, got %s", subDirPath, cwd)
+	}
+}
