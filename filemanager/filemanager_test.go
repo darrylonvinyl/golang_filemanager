@@ -1,7 +1,6 @@
 package filemanager
 
 import (
-	"cli_filemanager/filemanager"
 	"os"
 	"path/filepath"
 	"testing"
@@ -24,7 +23,7 @@ func TestListFiles(t *testing.T) {
 		}
 	}
 
-	err = filemanager.ListFiles(tempDir)
+	err = ListFiles(tempDir)
 	if err != nil {
 		t.Errorf("Listfiles failed: %v", err)
 	}
@@ -54,7 +53,7 @@ func TestRenameFile(t *testing.T) {
 	}
 	// RenameFile failed
 	// time.Sleep(100 * time.Millisecond)
-	err = filemanager.RenameFile(filePath, newFilePath)
+	err = RenameFile(filePath, newFilePath)
 	if err != nil {
 		t.Errorf("RenameFile failed: %v", err)
 		return
