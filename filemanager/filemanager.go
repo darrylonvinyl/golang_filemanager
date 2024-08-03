@@ -40,3 +40,10 @@ func RenameFile(oldFilePath, newFilePath string) error {
 	return os.Rename(oldFilePath,newFilePath)
 }
 
+func ChangeDirectory(dir string) error {
+	err := os.Chdir(dir)
+	if err != nil {
+		return fmt.Errorf("Failed to change directory: %w", err)
+	}
+	return nil
+}
