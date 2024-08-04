@@ -43,7 +43,16 @@ func RenameFile(oldFilePath, newFilePath string) error {
 func ChangeDirectory(dir string) error {
 	err := os.Chdir(dir)
 	if err != nil {
-		return fmt.Errorf("Failed to change directory: %w", err)
+		return fmt.Errorf("failed to change directory: %w", err)
 	}
 	return nil
+}
+
+func PrintWorkingDirectory() (string, error) {
+	cwd, err := os.Getwd()
+	if err != nil {
+		return "", fmt.Errorf("failed to get current working directory: %w", err)
+	}
+	fmt.Println(cwd)
+	return cwd, nil
 }

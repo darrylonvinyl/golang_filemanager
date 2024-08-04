@@ -43,7 +43,14 @@ func main() {
 			} else {
 				cwd, _ = os.Getwd()
 			}
+	case "pwd":
+		args := os.Args[2:]
+		if len(args) > 1 {
+			fmt.Println("pwd: too many arguments")
+			continue
 		}
+		filemanager.PrintWorkingDirectory()
 	}
 
+	}
 }

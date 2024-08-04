@@ -64,7 +64,7 @@ func TestRenameFile(t *testing.T) {
 		t.Fatalf("Failed to stat renamed file: %v", err)
 	}
 
-	if os.SameFile(fileInfoBefore,fileInfoAfter) {
+	if os.SameFile(fileInfoBefore, fileInfoAfter) {
 		t.Errorf("file inode changed after rename")
 	}
 }
@@ -96,5 +96,21 @@ func TestChangeDirectory(t *testing.T) {
 	}
 	if cwd != subDirPath {
 		t.Errorf("Incorrect working directory: expected %s, got %s", subDirPath, cwd)
+	}
+}
+
+func TestPwd(t *testing.T) {
+	// Capture the output of the pwd command
+	expectedDir, err := os.Getwd()
+	if err != nil {
+		t.Fatalf("Failed to get current working directory: %v", err)
+	}
+
+	cwd, err := PrintWorkingDirectory()
+	if err != nil {
+		t.Errorf("PrintWorkingDirectory failed: %v", err)
+	}
+	if cwd != expectedDir {
+		t.Errorf("Incorrect working directory: expected %s, got %s", expectedDir, cwd)
 	}
 }
