@@ -28,27 +28,21 @@ func main() {
 				fmt.Println("Error listing files:", err)
 			}
 		case "cd":
-			args := os.Args[2:]
-			if len(args) > 1 {
-				fmt.Println("cd: too many arguments")
-				continue
-			}
-			dir := "."
-			if len(args) == 1 {
-				dir = args[0]
-			}
-			err := filemanager.ChangeDirectory(dir)
-			if err != nil {
-				fmt.Println("Error changing directory:", err)
+			if len(os.Args) > 2 {
+				dir := os.Args[2]
+				err := filemanager.ChangeDirectory(dir)
+				if err != nil {
+					fmt.Println("Error changing directory:",err)
+				} else {
+					cwd, err = os.Getwd()
+					if err != nil {
+						fmt.Printf("Error getting working directory: %v", err)
+					}
+				}
 			} else {
-				cwd, _ = os.Getwd()
+				fmt.Println("cd: missing directory argument")
 			}
 	case "pwd":
-		args := os.Args[2:]
-		if len(args) > 1 {
-			fmt.Println("pwd: too many arguments")
-			continue
-		}
 		filemanager.PrintWorkingDirectory()
 	}
 
